@@ -4,17 +4,78 @@
 
 using namespace std;
 
-class Hangman {
+class HangmanGame {
     public:
 
     //default constructor
-    Hangman() {
+    HangmanGame() {
 
     }
 
-    
-    void play() {
-        cout << "Welcome to Hangman!" << endl;
 
+    void play() {
+        drawHangman();
+
+    }
+
+
+
+    void drawHangman() {
+        //level 0
+        cout << "_____" << endl;
+        cout << "|   |"<< endl;
+        cout << "|    "<< endl;
+        cout << "|    "<< endl;
+        cout << "|    "<< endl;
+        cout << "__   "<< endl;
+        //level 1
+        cout << "_____"<< endl;
+        cout << "|   |"<< endl;
+        cout << "|   o"<< endl;
+        cout << "|    "<< endl;
+        cout << "|    "<< endl;
+        cout << "__   "<< endl;
+
+        cout << "_____"<< endl;
+        cout << "|   |"<< endl;
+        cout << "|   o"<< endl;
+        cout << "|   |"<< endl;
+        cout << "|    "<< endl;
+        cout << "__   "<< endl;
+
+        cout << "_____"<< endl;
+        cout << "|   |"<< endl;
+        cout << "|   o"<< endl;
+        cout << "|  /|"<< endl;
+        cout << "|    "<< endl;
+        cout << "__   "<< endl;
+
+        cout << "_____"<< endl;
+        cout << "|   |"<< endl;
+        cout << "|   o"<< endl;
+        cout << "|  /|\\"<< endl;
+        cout << "|    "<< endl;
+        cout << "__   "<< endl;
+
+        cout << "_____"<< endl;
+        cout << "|   |"<< endl;
+        cout << "|   o"<< endl;
+        cout << "|  /|\\"<< endl;
+        cout << "|  / "<< endl;
+        cout << "__   "<< endl;
+
+        cout << "_____"<< endl;
+        cout << "|   |"<< endl;
+        cout << "|   o"<< endl;
+        cout << "|  /|\\"<< endl;
+        cout << "|  / \\"<< endl;
+        cout << "__   "<< endl;
+    }
+
+
+    //start game
+    int main() {
+        play();
+        return 0;
     }
 };
