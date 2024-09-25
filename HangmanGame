@@ -4,78 +4,33 @@
 
 using namespace std;
 
-class HangmanGame {
-    public:
 
-    //default constructor
-    HangmanGame() {
 
+void displayWord(const string &word, const string &guessedLetters) {
+    cout<<"\nword:";
+    for (int i=0; i<word.length(); ++i) {
+        bool guessed = false;
+        if (!guessed)
+            cout << "_";
     }
 
-
-    void play() {
-        drawHangman();
-
-    }
+}
 
 
-
-    void drawHangman() {
-        //level 0
-        cout << "_____" << endl;
-        cout << "|   |"<< endl;
-        cout << "|    "<< endl;
-        cout << "|    "<< endl;
-        cout << "|    "<< endl;
-        cout << "__   "<< endl;
-        //level 1
-        cout << "_____"<< endl;
-        cout << "|   |"<< endl;
-        cout << "|   o"<< endl;
-        cout << "|    "<< endl;
-        cout << "|    "<< endl;
-        cout << "__   "<< endl;
-
-        cout << "_____"<< endl;
-        cout << "|   |"<< endl;
-        cout << "|   o"<< endl;
-        cout << "|   |"<< endl;
-        cout << "|    "<< endl;
-        cout << "__   "<< endl;
-
-        cout << "_____"<< endl;
-        cout << "|   |"<< endl;
-        cout << "|   o"<< endl;
-        cout << "|  /|"<< endl;
-        cout << "|    "<< endl;
-        cout << "__   "<< endl;
-
-        cout << "_____"<< endl;
-        cout << "|   |"<< endl;
-        cout << "|   o"<< endl;
-        cout << "|  /|\\"<< endl;
-        cout << "|    "<< endl;
-        cout << "__   "<< endl;
-
-        cout << "_____"<< endl;
-        cout << "|   |"<< endl;
-        cout << "|   o"<< endl;
-        cout << "|  /|\\"<< endl;
-        cout << "|  / "<< endl;
-        cout << "__   "<< endl;
-
-        cout << "_____"<< endl;
-        cout << "|   |"<< endl;
-        cout << "|   o"<< endl;
-        cout << "|  /|\\"<< endl;
-        cout << "|  / \\"<< endl;
-        cout << "__   "<< endl;
-    }
+int main () {
+    string word= "hello";
+    string guessedLetters= "bruh";
+    displayWord(word, guessedLetters);
+}
 
 
-    //start game
-    int main() {
-        play();
-        return 0;
-    }
-};
+
+
+
+
+
+
+
+
+
+
