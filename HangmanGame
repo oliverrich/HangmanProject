@@ -13,22 +13,54 @@ void displayWord(const string &word, const string &guessedLetters) {
         if (!guessed)
             cout << "_";
     }
-
 }
+
+void displayGuess(const string &guessedLetters) {
+    cout<<"Letter gussed: ";
+    for (int i = 0; i < guessedLetters.length(); ++i) {
+        cout << guessedLetters[i] << " ";
+    }
+    cout <<endl;
+}
+
+
 
 
 int main () {
-    string word= "hello";
+    cout << "enter the word that you would like to be guessed";
+    string word;
+    cin >> word;
     string guessedLetters= "bruh";
-    displayWord(word, guessedLetters);
+
+    int maxAttempts = 6; //usually 6 guesses in a game but might make it later to allow this to change to make it harder
+    int remainingGuesses = maxAttempts;
+
+    //gameplay loop
+    while (remainingGuesses) {
+
+
+        displayWord(word, guessedLetters);
+        displayGuess(guessedLetters);
+
+        char guess;
+        cout << "enter the letter to guess: ";
+        cin >> guess;
+
+        guess = tolower(guess);
+
+
+        //here i cover some edge cases
+        if (!isalpha(guess)) {
+            cout<<"guess is not a letter";
+        }
+
+        if()//has already guessed
+    }
+
+
+
+
 }
-
-
-
-
-
-
-
 
 
 
