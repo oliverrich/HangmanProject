@@ -24,12 +24,28 @@ void displayGuess(const string &guessedLetters) {
     cout <<endl;
 }
 
+void displayGuessedLetters(const string &guessedLetters) {
+    cout<<"Letters guessed: ";
+    for (int i = 0; i < guessedLetters.length(); ++i) {
+        cout << guessedLetters[i] << " ";
+    }
+    cout <<endl;
+}
+
 bool hasBeenGuessed(char guess, const string &guessedLetters) {
     for (int i=0; i<guessedLetters.length(); ++i) {
         if (guess == guessedLetters[i])
             return true;
     }
     return false;
+}
+
+bool isGuessInWord(char guess, const string &word){
+    for (int i=0; i<word.length(); ++i) {
+        if (guess == word[i]) {
+            return true;
+        }
+    }
 }
 
 
@@ -64,16 +80,16 @@ int main () {
         if(hasBeenGuessed(guess, guessedLetters)){
             cout<< "this letter has been guessed";
         }
-        
-        //next im going to need to adda checker if a letter has been guessed
-    }
+
+       if (isGuessInWord(guess, word)) {
+           cout << guess << " is in the word!";
+       }
+       else {
+            cout << guess << " is not in the word!";
+            remainingGuesses--;
+
+       }
+
+
+    return 0;
 }
-
-
-
-
-
-
-
-
-
