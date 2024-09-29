@@ -13,32 +13,39 @@ void displayWord(const string &word, const string &guessedLetters) {
         if (!guessed)
             cout << "_";
     }
+    cout << endl;
 }
 
 void displayGuess(const string &guessedLetters) {
-    cout<<"Letter gussed: ";
+    cout<<"Letter guessed: ";
     for (int i = 0; i < guessedLetters.length(); ++i) {
         cout << guessedLetters[i] << " ";
     }
     cout <<endl;
 }
 
+bool hasBeenGuessed(char guess, const string &guessedLetters) {
+    for (int i=0; i<guessedLetters.length(); ++i) {
+        if (guess == guessedLetters[i])
+            return true;
+    }
+    return false;
+}
+
 
 
 
 int main () {
-    cout << "enter the word that you would like to be guessed";
+    cout << "enter the word that you would like to be guessed:" << endl;
     string word;
     cin >> word;
-    string guessedLetters= "bruh";
+    string guessedLetters= "";
 
     int maxAttempts = 6; //usually 6 guesses in a game but might make it later to allow this to change to make it harder
     int remainingGuesses = maxAttempts;
 
     //gameplay loop
     while (remainingGuesses) {
-
-
         displayWord(word, guessedLetters);
         displayGuess(guessedLetters);
 
@@ -53,14 +60,18 @@ int main () {
         if (!isalpha(guess)) {
             cout<<"guess is not a letter";
         }
-
-        if()//has already guessed
+        //has already guessed
+        if(hasBeenGuessed(guess, guessedLetters)){
+            cout<< "this letter has been guessed";
+        }
+        
+        //next im going to need to adda checker if a letter has been guessed
     }
-
-
-
-
 }
+
+
+
+
 
 
 
