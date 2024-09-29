@@ -1,17 +1,29 @@
 #include <iostream>
+#include <string>
 #include <cstdlib> //for rand later
 #include <ctime>
 
 using namespace std;
 
 
-
+//this function displays the ui for the word using _ for blanks and displays the
+//character when guessed correctly
 void displayWord(const string &word, const string &guessedLetters) {
     cout<<"\nword:";
     for (int i=0; i<word.length(); ++i) {
+        char currentChar = tolower(word[i]);
         bool guessed = false;
         if (!guessed)
             cout << "_";
+        for (int j=0; j<guessedLetters.length(); ++j) {
+            if (currentChar == guessedLetters[j]) {
+                cout << word[i] << " ";
+                guessed = true;
+                break;
+            }
+
+        }
+
     }
     cout << endl;
 }
@@ -24,13 +36,7 @@ void displayGuess(const string &guessedLetters) {
     cout <<endl;
 }
 
-void displayGuessedLetters(const string &guessedLetters) {
-    cout<<"Letters guessed: ";
-    for (int i = 0; i < guessedLetters.length(); ++i) {
-        cout << guessedLetters[i] << " ";
-    }
-    cout <<endl;
-}
+
 
 bool hasBeenGuessed(char guess, const string &guessedLetters) {
     for (int i=0; i<guessedLetters.length(); ++i) {
@@ -61,7 +67,11 @@ int main () {
     int remainingGuesses = maxAttempts;
 
     //gameplay loop
-    while (remainingGuesses) {
+
+
+    /*right now there is an issue for when you guess a letter correct, the porogram terminates.
+     */
+    while (remainingGuesses > 0) {
         displayWord(word, guessedLetters);
         displayGuess(guessedLetters);
 
@@ -76,20 +86,21 @@ int main () {
         if (!isalpha(guess)) {
             cout<<"guess is not a letter";
         }
-        //has already guessed
+
         if(hasBeenGuessed(guess, guessedLetters)){
             cout<< "this letter has been guessed";
         }
 
-       if (isGuessInWord(guess, word)) {
-           cout << guess << " is in the word!";
-       }
-       else {
+        if (isGuessInWord(guess, word)) {
+            cout << guess << " is in the word!";
+        }
+        else {
             cout << guess << " is not in the word!";
             remainingGuesses--;
 
-       }
+        }
 
 
-    return 0;
+        return 0;
+    }
 }
