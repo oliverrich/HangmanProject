@@ -15,6 +15,7 @@ The UI is elegant and shows all the pertenant information, like guesses left, wh
 
 
 ![image](https://github.com/user-attachments/assets/755dfdee-2e7a-4862-8f23-519b28d2cc37)
+
 We can see the user winning a game with the hidden word being "Burrito"
 
 
