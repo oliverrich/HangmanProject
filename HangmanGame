@@ -91,7 +91,7 @@ int main () {
     };
 
 
-    string word = wordList[rand() % WORD_COUNT];
+
 
 
     cout << "Welcome to Hangman!" << endl;
@@ -101,15 +101,15 @@ int main () {
     int modeChoice;
     cin >> modeChoice;
 
-    string wordToGuess;
+    string word;
 
     if (modeChoice == 1) {
         // Random word mode
-        wordToGuess = wordList[rand() % WORD_COUNT];
+        word = wordList[rand() % WORD_COUNT];
     } else if (modeChoice == 2) {
         // Friend-picks-word mode
         cout << "Enter a word for your friend to guess: ";
-        cin >> wordToGuess;
+        cin >> word;
     } else {
         cout << "Invalid choice!" << endl;
         return 1;
@@ -141,18 +141,25 @@ int main () {
         cout << "Attempts Left: " << remainingGuesses<< endl;
 
         // Prompt user for a guess
-        char guess;
-        cout << "Enter your guess: ";
-        cin >> guess;
+        string guessInputted;
+        cout << "Enter your guess (only one letter): ";
+        cin >> guessInputted;
 
-        // Convert guess to lowercase
-        guess = tolower(guess);
+        if (guessInputted.length() != 1) {
+            cout << "Please enter only one character.\n";
+            continue;
+        }
 
-        // Validate input
+        char guess = tolower(guessInputted[0]);
+
+
+        //check edge case for uppercase characters
         if (!isalpha(guess)) {
             cout << "Please enter an alphabetic character.\n";
             continue;
         }
+
+        
 
         // Check if the letter has already been guessed
         if (hasBeenGuessed(guess, guessedLetters)) {
