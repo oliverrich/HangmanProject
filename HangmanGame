@@ -6,18 +6,18 @@
 
 using namespace std;
 
+const int MAX_GUESSED_LETTERS = 26;
 
 //this function displays the ui for the word using _ for blanks and displays the
 //character when guessed correctly
 void displayWord(const string &word, const string &guessedLetters) {
-    cout<<"\nword:";
+    cout<<"\nWord:";
     for (int i=0; i<word.length(); ++i) {
         char currentChar = tolower(word[i]);
         bool guessed = false;
-
         for (int j=0; j<guessedLetters.length(); ++j) {
             if (currentChar == guessedLetters[j]) {
-                cout << word[i] << " ";
+                cout << word[i];
                 guessed = true;
                 break;
             }
@@ -29,7 +29,7 @@ void displayWord(const string &word, const string &guessedLetters) {
     }
     cout << endl;
 }
-
+//displays the letters guessed so that the user doesnt pick the same guess
 void displayGuess(const string &guessedLetters) {
     cout<<"Letter guessed: ";
     for (int i = 0; i < guessedLetters.length(); ++i) {
@@ -39,7 +39,7 @@ void displayGuess(const string &guessedLetters) {
 }
 
 
-
+//catches an edge case in which the user guesses the same letter
 bool hasBeenGuessed(char guess, const string &guessedLetters) {
     for (int i=0; i<guessedLetters.length(); ++i) {
         if (guess == guessedLetters[i])
@@ -47,7 +47,7 @@ bool hasBeenGuessed(char guess, const string &guessedLetters) {
     }
     return false;
 }
-
+//detects if the guessed letter is in the word
 bool isGuessInWord(char guess, const string &word){
     for (int i=0; i<word.length(); ++i) {
         if (guess == word[i]) {
@@ -57,7 +57,7 @@ bool isGuessInWord(char guess, const string &word){
     return false;
 }
 
-
+//checks if the word has been guessed after all the guesses
 bool isWordGuessed(const string &word, const string &guessedLetters) {
     for (int i = 0; i < word.length(); ++i) {
         char currentChar = tolower(word[i]);
@@ -78,52 +78,109 @@ bool isWordGuessed(const string &word, const string &guessedLetters) {
 
 
 int main () {
-    cout << "enter the word that you would like to be guessed:" << endl;
-    string word;
-    cin >> word;
-    string guessedLetters= "";
+    srand(time(0));
 
-    int maxAttempts = 6; //usually 6 guesses in a game but might make it later to allow this to change to make it harder
-    int remainingGuesses = maxAttempts;
+    const int WORD_COUNT = 15;
 
-    //gameplay loop
+    //some random words so that the player doesnt have to input a word themself
+
+    string wordList[WORD_COUNT] = {
+        "jazz", "quiz", "train", "orange", "paper", "brown", "neighbor",
+        "pineapple" ,"fruit", "burrito", "awkward", "airplane", "banana",
+        "purple", "siege"
+    };
 
 
-    /*right now there is an issue for when you guess a letter correct, the porogram terminates.
-     */
+    string word = wordList[rand() % WORD_COUNT];
+
+
+    cout << "Welcome to Hangman!" << endl;
+    cout << "Choose game mode:" << endl;
+    cout << "1. Play by yourself (random word)" << endl;
+    cout << "2. Play with a friend (friend picks a word)" << endl;
+    int modeChoice;
+    cin >> modeChoice;
+
+    string wordToGuess;
+
+    if (modeChoice == 1) {
+        // Random word mode
+        wordToGuess = wordList[rand() % WORD_COUNT];
+    } else if (modeChoice == 2) {
+        // Friend-picks-word mode
+        cout << "Enter a word for your friend to guess: ";
+        cin >> wordToGuess;
+    } else {
+        cout << "Invalid choice!" << endl;
+        return 1;
+    }
+
+    cout << "Choose difficulty:" << endl;
+    cout << "1. Normal mode (6 guesses)" << endl;
+    cout << "2. Hard mode (3 guesses)" << endl;
+    int difficultyChoice;
+    cin >> difficultyChoice;
+
+    int remainingGuesses;
+    if (difficultyChoice == 1) {
+        remainingGuesses = 6;  // Normal mode
+    } else if (difficultyChoice == 2) {
+        remainingGuesses = 3;  // Hard mode
+    } else {
+        cout << "Invalid choice!" << endl;
+        return 1;
+    }
+
+    string guessedLetters = "";
+
+
+    // Main game loop
     while (remainingGuesses > 0) {
         displayWord(word, guessedLetters);
         displayGuess(guessedLetters);
+        cout << "Attempts Left: " << remainingGuesses<< endl;
 
+        // Prompt user for a guess
         char guess;
-        cout << "enter the letter to guess: ";
+        cout << "Enter your guess: ";
         cin >> guess;
 
+        // Convert guess to lowercase
         guess = tolower(guess);
 
-
-        //here i cover some edge cases
+        // Validate input
         if (!isalpha(guess)) {
-            cout<<"guess is not a letter";
+            cout << "Please enter an alphabetic character.\n";
+            continue;
         }
 
-        if(hasBeenGuessed(guess, guessedLetters)){
-            cout<< "this letter has been guessed";
+        // Check if the letter has already been guessed
+        if (hasBeenGuessed(guess, guessedLetters)) {
+            cout << "You've already guessed that letter. Try a different one.\n";
+            continue;
         }
 
+        // Add the guess to the list of guessed letters
+        if (guessedLetters.length() < MAX_GUESSED_LETTERS) {
+            guessedLetters += guess;
+        } else {
+            cout << "You've reached the maximum number of guessed letters.\n";
+            continue;
+        }
+
+        // Check if the guess is in the word
         if (isGuessInWord(guess, word)) {
-            cout << guess << " is in the word!";
-        }
-        else {
-            cout << guess << " is not in the word!";
+            cout << "Good job! '" << guess << "' is in the word.\n";
+        } else {
+            cout << "Sorry, '" << guess << "' is not in the word.\n";
             remainingGuesses--;
-
         }
+
+        // Check if the user has guessed all letters
         if (isWordGuessed(word, guessedLetters)) {
-            cout << "\nCongratulations! You got it! " << word << "\n";
+            cout << "\nCongratulations! You've guessed the word: " << word << "\n";
             break;
         }
-
     }
     if (remainingGuesses == 0) {
         cout << "\nGame over! Nice try :(" << endl;
